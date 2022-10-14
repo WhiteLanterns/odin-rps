@@ -13,12 +13,30 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-        playerSelection = playerSelection.toUpperCase();
-        if ((playerSelection === "ROCK" && computerSelection === "PAPER") || (playerSelection === "PAPER" && computerSelection === "SCISSORS") || (playerSelection === "SCISSORS" && computerSelection === "ROCK")) {
-            return false
-            return "You lose! " + computerSelection + " beats " + playerSelection + "!"
+    if ((playerSelection.toUpperCase() === "ROCK" && computerSelection === "PAPER") || (playerSelection.toUpperCase() === "PAPER" && computerSelection === "SCISSORS") || (playerSelection.toUpperCase() === "SCISSORS" && computerSelection === "ROCK")) {
+        return 0
+    } else if (playerSelection.toUpperCase() === computerSelection) {
+        return 1
+    } else {
+        return 2
+    }
+}
+
+function game(){
+    let rounds = parseInt(prompt("How many rounds would you like to play? "))
+    let score = 0
+    for (let i = 0; i < rounds; i++){
+        let playerChoice = prompt("Rock, paper, or scissors? ")
+        let computerChoice = getComputerChoice()
+        result = playRound(playerChoice, computerChoice)
+        if (result === 2) {
+            score++
+            console.log ("YOU WON! " + playerChoice.toUpperCase() + " BEATS " + computerChoice + "!")
+        } else if (result === 1){
+            console.log ("IT'S A DRAW!")
         } else {
-            return true
-            return "You won! " + playerSelection + " beats " + computerSelection + "!"
+            console.log ("YOU LOSE! " + computerChoice + " BEATS " + playerChoice.toUpperCase() + "!")
         }
     }
+    return "YOUR FINAL SCORE WAS " + score
+}
