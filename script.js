@@ -22,21 +22,54 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game(){
-    let rounds = parseInt(prompt("How many rounds would you like to play? "))
-    let score = 0
-    for (let i = 0; i < rounds; i++){
-        let playerChoice = prompt("Rock, paper, or scissors? ")
+const btns = document.querySelectorAll('.btn-container');
+let score = 0;
+const scoreContainer = document.querySelector('.score-container');
+const gameFeedback = document.querySelector('#game-feedback');
+const gameText = document.createElement('h3');
+const scoreDisplay = document.createElement('p');
+
+gameText.textContent = "Click a button to play!";
+
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        let playerChoice = event.srcElement.id
         let computerChoice = getComputerChoice()
-        result = playRound(playerChoice, computerChoice)
+        let result = playRound(playerChoice, computerChoice)
         if (result === 2) {
             score++
-            console.log ("YOU WON! " + playerChoice.toUpperCase() + " BEATS " + computerChoice + "!")
+            gameText.textContent = ("YOU WON! " + playerChoice.toUpperCase() + " BEATS " + computerChoice + "!")
+            gameFeedback.append(gameText)
         } else if (result === 1){
-            console.log ("IT'S A DRAW!")
+            gameText.textContent = ("IT'S A DRAW!")
+            gameFeedback.append(gameText)
         } else {
-            console.log ("YOU LOSE! " + computerChoice + " BEATS " + playerChoice.toUpperCase() + "!")
+            gameText.textContent = ("YOU LOSE! " + computerChoice + " BEATS " + playerChoice.toUpperCase() + "!")
+            gameFeedback.append(gameText)
         }
-    }
-    return "YOUR FINAL SCORE WAS " + score
-}
+        scoreDisplay.textContent = "Score: " + score.toString();
+    });
+});
+
+scoreDisplay.textContent = "Score: " + score.toString();
+scoreContainer.append(scoreDisplay)
+
+
+// function game(){
+//     let rounds = parseInt(prompt("How many rounds would you like to play? "))
+//     let score = 0
+//     for (let i = 0; i < rounds; i++){
+//         let playerChoice = prompt("Rock, paper, or scissors? ")
+//         let computerChoice = getComputerChoice()
+//         result = playRound(playerChoice, computerChoice)
+//         if (result === 2) {
+//             score++
+//             console.log ("YOU WON! " + playerChoice.toUpperCase() + " BEATS " + computerChoice + "!")
+//         } else if (result === 1){
+//             console.log ("IT'S A DRAW!")
+//         } else {
+//             console.log ("YOU LOSE! " + computerChoice + " BEATS " + playerChoice.toUpperCase() + "!")
+//         }
+//     }
+//     return "YOUR FINAL SCORE WAS " + score
+// })
